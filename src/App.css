@@ -169,6 +169,9 @@ body {
   box-sizing: border-box;
 }
 
+.input::placeholder {
+  color: #A8B3C7;
+}
 
 @layer components {
   .container {

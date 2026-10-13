@@ -23,7 +23,7 @@ const ExplorePage = () => {
             <div>
               <label className="">Role or Company</label>
               <div className='flex gap-2 items-center mt-2'>
-                <input type="text" className='inputField' placeholder='Role or Company' />
+                <input type="text" className='inputField input' placeholder='Role or Company' />
                 <button className='bg-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-md'>
                   <FaSearch size={16} />
                 </button>

@@ -3,6 +3,8 @@ import { FaSearch } from "react-icons/fa";
 import { Opportunities } from '../components/Opportunities';
 import { FaRegBookmark } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
+import { FaStar } from "react-icons/fa";
+
 
 const ExplorePage = () => {
   return (
@@ -60,9 +62,12 @@ const ExplorePage = () => {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
             {Opportunities.map((opportunity) => (
               <div key={opportunity.id} className="bg-[var(--color-surface)] text-[var(--color-text)] p-4 flex flex-col h-full rounded-md shadow-md mb-4">
-                <span className={`self-start p-2 bg-blue-100 text-blue-800 rounded-md ${opportunity.mode === "Internship" ? "bg-blue-100 text-blue-800" : opportunity.mode === "Graduate Programme" ? "bg-green-100 text-green-800" : opportunity.mode === "Job" ? "bg-yellow-100 text-yellow-800" : opportunity.mode === "Scholarship" ? "bg-purple-100 text-purple-800" : opportunity.mode === "Fellowship" ? "bg-pink-100 text-pink-800" : ""}`}>
-                  {opportunity.mode}
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className={`self-start p-2 bg-blue-100 text-blue-800 rounded-md ${opportunity.mode === "Internship" ? "bg-blue-100 text-blue-800" : opportunity.mode === "Graduate Programme" ? "bg-green-100 text-green-800" : opportunity.mode === "Job" ? "bg-yellow-100 text-yellow-800" : opportunity.mode === "Scholarship" ? "bg-purple-100 text-purple-800" : opportunity.mode === "Fellowship" ? "bg-pink-100 text-pink-800" : ""}`}>
+                    {opportunity.mode}
+                  </span>
+                  <FaStar size={24} className='inline-block ml-2 text-yellow-500' />
+                </div>
                 <h2 className='mt-4 text-xl font-bold'>{opportunity.title}</h2>
                 <p className='mt-2 text-sm font-bold'>{opportunity.company}</p>
                 <p className="flex items-center text-sm mt-2">

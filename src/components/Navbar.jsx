@@ -25,10 +25,10 @@ const Navbar = () => {
 
           <nav className="flex items-center gap-4 h-full">
             <ul className="flex  items-center gap-4 text-[0.75rem] md:text-20 h-full">
-              <li className="h-full"><Link to="/" className={`flex items-center gap-1 h-full hover:border-b-[3px] hover:border-b-[var(--color-primary)] ${location == "/" ? "border-b-[3px] border-b-[var(--color-primary)]" : "border-b-[0px]"}`}>EXPLORE</Link>
+              <li className="h-full"><Link to="/" className={`flex items-center gap-1 h-full border-b-[3px] hover:border-b-[var(--color-primary)] ${location == "/" ? "border-b-[var(--color-primary)]" : "border-b-transparent"}`}>EXPLORE</Link>
               </li>
               <li className="relative h-full">
-                <Link to="/savedOpportunities" className={`flex items-center gap-1 h-full hover:border-b-[3px] hover:border-b-[var(--color-primary)] ${location == "/savedOpportunities" ? "border-b-[3px] border-b-[var(--color-primary)]" : "border-b-[0px]"}`}>
+                <Link to="/savedOpportunities" className={`flex items-center gap-1 h-full border-b-[3px] hover:border-b-[var(--color-primary)] ${location == "/savedOpportunities" ? "border-b-[var(--color-primary)]" : "border-b-transparent"}`}>
                   SAVED
                   <span className="bg-[var(--color-primary)] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </Link>

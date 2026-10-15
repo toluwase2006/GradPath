@@ -39,18 +39,21 @@ const ExplorePage = () => {
 
       <section className="relative flex justify-center items-center">
         <div className='container absolute -top-20'>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 bg-[var(--color-surface)] text-[var(--color-text)] p-4 rounded-md shadow-md'>
+          <form className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 bg-[var(--color-surface)] text-[var(--color-text)] p-4 rounded-md shadow-md' onSubmit={(e) => {
+            e.preventDefault();
+            setSubmittedSearch(searchTerm);
+          }}>
             <div>
               <label className="">Role or Company</label>
               <div className='flex gap-2 items-center mt-2'>
-                <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} 
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    setSubmittedSearch(searchTerm);
-                  }
-                }} 
-                className='inputField input' placeholder='Role or Company' />
-                <button className='bg-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-md' onClick={() => setSubmittedSearch(searchTerm)}>
+                <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setSubmittedSearch(searchTerm);
+                    }
+                  }}
+                  className='inputField input' placeholder='Role or Company' />
+                <button className='bg-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-md'>
                   <FaSearch size={16} />
                 </button>
               </div>
@@ -82,7 +85,7 @@ const ExplorePage = () => {
                 <option value="hybrid">Hybrid</option>
               </select>
             </div>
-          </div>
+          </form>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
             {filteredOpportunities.map((opportunity) => (
               <div key={opportunity.id} className="bg-[var(--color-surface)] text-[var(--color-text)] p-4 flex flex-col h-full rounded-md shadow-md mb-4">
@@ -90,11 +93,11 @@ const ExplorePage = () => {
                   <span className={`self-start p-2 bg-blue-100 text-blue-800 rounded-md ${opportunity.mode === "Internship" ? "bg-blue-100 text-blue-800" : opportunity.mode === "Graduate Programme" ? "bg-green-100 text-green-800" : opportunity.mode === "Job" ? "bg-yellow-100 text-yellow-800" : opportunity.mode === "Scholarship" ? "bg-purple-100 text-purple-800" : opportunity.mode === "Fellowship" ? "bg-pink-100 text-pink-800" : ""}`}>
                     {opportunity.mode}
                   </span>
-                  <FaStar size={24} className='inline-block ml-2 text-yellow-500' />
+                  {/* <FaStar size={24} className='inline-block ml-2 text-yellow-500' /> */}
                 </div>
-                <h2 className='mt-4 text-xl font-bold'>{opportunity.title}</h2>
-                <p className='mt-2 text-sm font-bold'>{opportunity.company}</p>
-                <p className="flex items-center text-sm mt-2">
+                <h2 className='mt-4 text-[1.5rem] md:text-xl font-bold'>{opportunity.title}</h2>
+                <p className='mt-2 text-[1.2rem] md:text-sm font-bold'>{opportunity.company}</p>
+                <p className="flex items-center text-text-sm mt-2">
                   <IoLocationOutline size={16} className='inline-block mr-1' />
                   {opportunity.location}
                 </p>
@@ -108,6 +111,29 @@ const ExplorePage = () => {
                 </div>
               </div>
             ))}
+            {filteredOpportunities.length === 0 && (
+              <div className="col-span-full text-center py-12">
+                <h3 className="text-xl font-bold">
+                  No opportunities found
+                </h3>
+
+                <p className="mt-2 text-gray-500">
+                  Try another search term or change your filters.
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('');
+                    setSelectedLocation('');
+                  }}
+                  className="mt-4 px-4 py-2 rounded-md bg-[var(--color-primary)] text-white"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

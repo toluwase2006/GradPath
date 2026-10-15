@@ -173,6 +173,12 @@ body {
   color: #A8B3C7;
 }
 
+.hero-bg {
+  background:
+    radial-gradient(circle at 50% 0%, rgb(49 87 213 / 28%), transparent 60%),
+    linear-gradient(to bottom, #1c2a4a 0%, var(--color-bg) 100%);
+}
+
 @layer components {
   .container {
     @apply w-[90%]! mx-auto max-w-[90rem]!;

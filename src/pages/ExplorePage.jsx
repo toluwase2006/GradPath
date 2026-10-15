@@ -4,15 +4,33 @@ import { Opportunities } from '../components/Opportunities';
 import { FaRegBookmark } from "react-icons/fa6";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
+import { useState } from 'react';
 
 
 const ExplorePage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [submittedSearch, setSubmittedSearch] = useState('');
+
+  const filteredOpportunities = Opportunities.filter((opportunity) => {
+    const search = submittedSearch.toLowerCase().trim();
+
+    const matchesSearch = opportunity.title.toLowerCase().includes(search) || opportunity.company.toLowerCase().includes(search);
+
+    const matchesCategory = selectedCategory === '' || opportunity.mode.toLowerCase() === selectedCategory.toLowerCase();
+
+    const matchesLocation = selectedLocation === '' || opportunity.location.toLowerCase().includes(selectedLocation.toLowerCase());
+
+    return matchesSearch && matchesCategory && matchesLocation;
+  });
+
   return (
     <main className="">
 
       {/* Hero Section */}
 
-      <section className="bg-[var(--color-border-strong)] text-center h-72 w-full flexItemsCenter flex-col">
+      <section className="bg-[var(--color-border-strong)] hero-bg text-center h-72 w-full flexItemsCenter flex-col">
         <h1 className='text-[1.5rem] md:text-[3rem] font-bold'>Kickstart Your Career in Nigeria</h1>
         <p className='text-[0.75rem] text-[1rem]'>Curated internships, graduate trainee roles, and fellowships all in one place.</p>
       </section>
@@ -25,15 +43,21 @@ const ExplorePage = () => {
             <div>
               <label className="">Role or Company</label>
               <div className='flex gap-2 items-center mt-2'>
-                <input type="text" className='inputField input' placeholder='Role or Company' />
-                <button className='bg-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-md'>
+                <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} 
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setSubmittedSearch(searchTerm);
+                  }
+                }} 
+                className='inputField input' placeholder='Role or Company' />
+                <button className='bg-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary-hover)] text-white px-4 py-2 rounded-md' onClick={() => setSubmittedSearch(searchTerm)}>
                   <FaSearch size={16} />
                 </button>
               </div>
             </div>
             <div className="filterGroup">
               <label htmlFor="category" className='m'>Category</label>
-              <select id="category" className="inputField mt-2" defaultValue="">
+              <select id="category" className="inputField mt-2" defaultValue="" onChange={(e) => setSelectedCategory(e.target.value)}>
                 <option value="" disabled>
                   Select category
                 </option>
@@ -47,7 +71,7 @@ const ExplorePage = () => {
 
             <div className="filterGroup">
               <label htmlFor="location">Location</label>
-              <select id="location" className="inputField mt-2" defaultValue="">
+              <select id="location" className="inputField mt-2" defaultValue="" onChange={(e) => setSelectedLocation(e.target.value)}>
                 <option value="" disabled>
                   Select location
                 </option>
@@ -60,7 +84,7 @@ const ExplorePage = () => {
             </div>
           </div>
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
-            {Opportunities.map((opportunity) => (
+            {filteredOpportunities.map((opportunity) => (
               <div key={opportunity.id} className="bg-[var(--color-surface)] text-[var(--color-text)] p-4 flex flex-col h-full rounded-md shadow-md mb-4">
                 <div className="flex items-center justify-between">
                   <span className={`self-start p-2 bg-blue-100 text-blue-800 rounded-md ${opportunity.mode === "Internship" ? "bg-blue-100 text-blue-800" : opportunity.mode === "Graduate Programme" ? "bg-green-100 text-green-800" : opportunity.mode === "Job" ? "bg-yellow-100 text-yellow-800" : opportunity.mode === "Scholarship" ? "bg-purple-100 text-purple-800" : opportunity.mode === "Fellowship" ? "bg-pink-100 text-pink-800" : ""}`}>

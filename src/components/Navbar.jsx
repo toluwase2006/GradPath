@@ -39,13 +39,13 @@ const Navbar = () => {
           {/* mode toggle */}
 
           <div className="flexItemsCenter gap-4 w-16 h-8 cursor-pointer bg-[var(--color-navy)] relative rounded-lg" onClick={toggleDarkMode}>
-            <IoMoon size={16} className="text-[var(--color-text-muted)]" />
             <IoMdSunny size={16} className="text-[var(--color-text-muted)]" />
+            <IoMoon size={16} className="text-[var(--color-text-muted)]" />
             <button className={`h-6 w-6 rounded-full bg-[var(--color-surface)] text-[var(--color-text)] flexItemsCenter justify-center absolute left-[5px]  transition-transform duration-300 ease-in-out transform translate-x-0 ${isDark ? 'translate-x-8' : ''}`}>
               {isDark ? (
-                <IoMdSunny size={12} className="" />
-              ) : (
                 <IoMoon size={12} className="" />
+              ) : (
+                <IoMdSunny size={12} className="" />
               )}
             </button>
           </div>
